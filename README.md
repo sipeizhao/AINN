@@ -7,6 +7,7 @@ https://pubs.aip.org/asa/jasa/article/156/3/2009/3314199
 Sipei Zhao and Fei Ma (2024). A circular microphone array with virtual microphones based on acoustics-informed neural networks, The Journal of the Acoustical Society of America, 156(1): 405-415.
 https://pubs.aip.org/asa/jasa/article/156/1/405/3303425/A-circular-microphone-array-with-virtual
 
+# Dataset
 The room impulse response (RIR) dataset is available at: https://data.research.uts.edu.au/publication/fad2f4b0c03d11ec91ce05dbccc55a63/
 
 The detailed description of the RIR dataset is available in the following paper:
