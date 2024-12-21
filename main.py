@@ -29,102 +29,8 @@ args = parser.parse_args()
 #####################################################################################################################
 # Load the RTF data
 #####################################################################################################################
-# Specify the room and zone in the UTS RIR database
-
-# room_number = args.room_number
-# data_dir = args.data_dir
-# file_name_prefix = args.file_name_prefix
-# results_dir = args.results_dir
-# room_number = args.room_number
-# if room_number == 1:
-#     data_dir = '../UTS RIR Database/Anechoic Room/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'AnechoicRoom_ZoneE_CircularMicrophoneArray'
-#     print("Anechoic Room\n\n")
-#     results_dir = '../Results/AnechoicRoom/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# elif room_number == 2:
-#     data_dir = '../UTS RIR Database/Hemi-anechoic Room/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'HemiAnechoicRoom_ZoneE_CircularMicrophoneArray'
-#     print("\n\nHemi-Anechoic Room\n\n")
-#     results_dir = '../Results/HemiAnechoicRoom/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# elif room_number == 3:
-#     data_dir = '../UTS RIR Database/Small Meeting Room/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'SmallMeetingRoom_ZoneE_CircularMicrophoneArray'
-#     print("Small Meeting Room\n\n")
-#     results_dir = '../Results/SmallMeetingRoom/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# elif room_number == 4:
-#     data_dir = '../UTS RIR Database/Medium Meeting Room/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'MediumMeetingRoom_ZoneE_CircularMicrophoneArray'
-#     print("Medium Meeting Room\n\n")
-#     results_dir = '../Results/MediumMeetingRoom/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# elif room_number == 5:
-#     data_dir = '../UTS RIR Database/Large Meeting Room/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'LargeMeetingRoom_ZoneE_CircularMicrophoneArray'
-#     print("Large Meeting Room\n\n")
-#     results_dir = '../Results/LargeMeetingRoom/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# elif room_number == 6:
-#     data_dir = '../UTS RIR Database/Shoe-box Room/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'ShoeBoxRoom_ZoneE_CircularMicrophoneArray'
-#     print("Shoe-box Room\n\n")
-#     results_dir = '../Results/ShoeBoxRoom/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# elif room_number == 7:
-#     data_dir = '../UTS RIR Database/Open-plan Office/ZoneE/CircularMicrophoneArray/'
-#     file_name_prefix = 'OpenSpace_ZoneE_CircularMicrophoneArray'
-#     print("Open-plan Office\n\n")
-#     results_dir = '../Results/OpenSpace/'
-#     if not os.path.exists(results_dir):
-#         os.makedirs(results_dir)
-# else:
-#     raise ValueError("Room number not found!")
-
-# Specify the loudspeaker index in the UTS RIR database
-# speaker_index = [7]  # loudspeaker position
-# speaker_index = range(1,61)
 speaker_set = args.speaker_set
 speaker_index = [speaker_set]
-# if speaker_set == 1:
-#     speaker_index = range(1, 6)
-# elif speaker_set == 2:
-#     speaker_index = range(6, 11)
-# elif speaker_set == 3:
-#     speaker_index = range(11, 16)
-# elif speaker_set == 4:
-#     speaker_index = range(16, 21)
-# elif speaker_set == 5:
-#     speaker_index = range(21, 26)
-# elif speaker_set == 6:
-#     speaker_index = range(26, 31)
-# elif speaker_set == 7:
-#     speaker_index = range(31, 36)
-# elif speaker_set == 8:
-#     speaker_index = range(36, 41)
-# elif speaker_set == 9:
-#     speaker_index = range(41, 46)
-# elif speaker_set == 10:
-#     speaker_index = range(46, 51)
-# elif speaker_set == 11:
-#     speaker_index = range(51, 56)
-# elif speaker_set == 12:
-#     speaker_index = range(56, 61)
-# else:
-#     raise ValueError("Speaker set not specified!")
-
-# Load the RTF data
-# RTF = myDataLoader.loadRTF(data_dir, file_name_prefix, speaker_index)
-# # save the RTF data
-# RTF_path = './RTF/RTF_' + file_name_prefix + '_Speaker_set_' + str(speaker_set) + '.mat'
-# sio.savemat(RTF_path, RTF)
 
 RTF_file = args.input_file
 RTF = sio.loadmat(RTF_file)
@@ -179,8 +85,6 @@ for spk in speaker_index:
         'grad_true_values': np.zeros((grad_pred_coordinates.shape[0], freq.shape[0]), dtype=complex),
         'grad_predicted_x': np.zeros((grad_pred_coordinates.shape[0], freq.shape[0]), dtype=complex),
         'grad_predicted_y': np.zeros((grad_pred_coordinates.shape[0], freq.shape[0]), dtype=complex),
-        # 'Best_model_real': [None] * freq.shape[0],
-        # 'Best_model_imag': [None] * freq.shape[0],
     }
     index = 0
     for f in freq:
@@ -231,8 +135,6 @@ for spk in speaker_index:
             # print('\nResults for real part:')
             print('Input file:', RTF_file, '\nSpeaker:', spk, 'Frequency:', f, 'Hz', 'Version', version, 'Time', now,
                   'Layers', layers, 'Nodes', nodes, 'Data loss:', loss_data_real[-1],'PDE loss', loss_pde_real[-1])
-            # print(loss_data_real)
-            # print(loss_pde_real)
 
             if loss_data_real[-1] < min_loss_real:
                 min_loss_real = loss_data_real[-1]
@@ -254,8 +156,6 @@ for spk in speaker_index:
             # print('\nResults for imaginary part:')
             print('Input file:', RTF_file, '\nSpeaker:', spk, 'Frequency:', f, 'Hz', 'Version', version, 'Time', now,
                   'Layers', layers, 'Nodes', nodes, 'Data loss:', loss_data_imag[-1], 'PDE loss', loss_pde_imag[-1])
-            # print(loss_data_imag)
-            # print(loss_pde_imag)
 
             if loss_data_imag[-1] < min_loss_imag:
                 min_loss_imag = loss_data_imag[-1]
@@ -306,13 +206,11 @@ for spk in speaker_index:
         AINNResults['p_true_values'][:,index] = RTF['sound_pressure'][:, f_index]
         AINNResults['grad_true_values'][:,index] = RTF['pressure_gradients'][:, f_index]
         # save the best models
-        # PINNResults['Best_model_real'][index] = best_model_real
-        # PINNResults['Best_model_imag'][index] = best_model_imag
         index = index + 1
         print('Frequency', f, 'Hz completed!\n')
         ##############################################################################################################
 
-    # output_file = 'PINNResults_Room_' + str(room_number) + '_Speaker_' + str(spk) + '.mat'
+    # output_file = 'AINNResults_Room_' + str(room_number) + '_Speaker_' + str(spk) + '.mat'
     output_file = args.output_file
     sio.savemat(output_file, AINNResults)
 
